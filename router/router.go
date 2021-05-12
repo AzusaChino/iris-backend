@@ -8,7 +8,8 @@ import (
 
 func ApplyRouter(app *gin.Engine) {
 	ac := new(controller.ArticleController)
-	doApply(app, ac)
+	adc := new(controller.ArticleDetailController)
+	doApply(app, ac, adc)
 }
 
 func doApply(app *gin.Engine, handlers ...controller.Handler) {
