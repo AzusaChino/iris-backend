@@ -24,13 +24,13 @@ func main() {
 	})
 
 	app.POST("/login", func(c *gin.Context) {
-		var username = c.Param("username")
-		var password = c.Param("password")
-		fmt.Println(username, password)
+		json := model.User{}
+		c.BindJSON(&json)
+		fmt.Println(json.Username, json.Password)
 		var user = model.User{
-			Username: username,
-			Password: password,
-			Avatar:   "https://img.luozhiyun.com/20210110110753.png",
+			Username: json.Username,
+			Password: "*********",
+			Avatar:   "https://azusachino.cn/img/avatar_hu665707f40d683dd23d0f4e3ce66154da_29874_300x0_resize_q75_box.jpg",
 		}
 		c.JSON(200, gin.H{
 			"message": "OK",
