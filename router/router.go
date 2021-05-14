@@ -7,9 +7,11 @@ import (
 )
 
 func ApplyRouter(app *gin.Engine) {
+	login := new(controller.LoginHandler)
 	ac := new(controller.ArticleController)
 	adc := new(controller.ArticleDetailController)
-	doApply(app, ac, adc)
+	cc := new(controller.CommentController)
+	doApply(app, login, ac, adc, cc)
 }
 
 func doApply(app *gin.Engine, handlers ...controller.Handler) {

@@ -5,3 +5,7 @@ type User struct {
 	Password string `json:"password"`
 	Avatar   string `json:"avatar"`
 }
+
+func (u *User) TableName() string {
+	return "user"
+}
