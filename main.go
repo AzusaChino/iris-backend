@@ -13,5 +13,5 @@ func main() {
 
 	router.ApplyRouter(app)
 
-	app.Run()
+	app.Run(":7878")
 }
