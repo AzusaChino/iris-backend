@@ -10,29 +10,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CommentController struct{}
-
-func (a *CommentController) Method() string {
-	return http.MethodGet
-}
-
-func (a *CommentController) Path() string {
-	return "/article/:id/comment"
-}
-
-func (a *CommentController) HandlerFunc(ctx *gin.Context) {
+func QueryComment(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(http.StatusOK, queryComments(id))
+	ctx.JSON(http.StatusOK, queryComment(id))
 }
 
-func queryComments(articleId string) common.RestResponse {
+func queryComment(articleId string) common.RestResponse {
 	db, clean, err := utils.GetDb()
 	defer clean()
 	if err != nil {
 		log.Fatal(err)
 	}
 	var comments []model.Comment
-	db.Where("article_id = ?", articleId).Find(&comments)
+	result := db.Where("article_id = ?", articleId).Find(&comments)
+	if result.Error != nil {
 
-	return common.Ok(comments)
+		return common.Ok(comments)
+	} else {
+		return common.Error(1006, "获取文章评论失败")
+	}
 }

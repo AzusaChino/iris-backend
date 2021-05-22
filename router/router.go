@@ -1,21 +1,22 @@
 package router
 
 import (
-	"iris/controller"
+	c "iris/controller"
 
 	"github.com/gin-gonic/gin"
 )
 
 func ApplyRouter(app *gin.Engine) {
-	login := new(controller.LoginHandler)
-	ac := new(controller.ArticleController)
-	adc := new(controller.ArticleDetailController)
-	cc := new(controller.CommentController)
-	doApply(app, login, ac, adc, cc)
-}
 
-func doApply(app *gin.Engine, handlers ...controller.Handler) {
-	for _, handler := range handlers {
-		app.Handle(handler.Method(), handler.Path(), handler.HandlerFunc)
+	apiV1 := app.Group("/api/v1")
+	{
+		apiV1.POST("/login", c.Login)
+		apiV1.GET("/articles", c.QueryArticle)
+		apiV1.GET("/article/:id", c.QueryArticleDetail)
+		apiV1.GET("/article/:id/comments", c.QueryComment)
+
+		// todo 需要鉴权的接口
+		// authorized := apiV1.Group("/auth", gin.BasicAuth(gin.Accounts{}))
+		// authorized.GET("")
 	}
 }

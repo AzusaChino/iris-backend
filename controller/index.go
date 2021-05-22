@@ -10,36 +10,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/**
- * URL控制器
- */
-type Handler interface {
-	Method() string
-	Path() string
-	HandlerFunc(ctx *gin.Context)
-}
-
-type LoginHandler struct{}
-
-func (l *LoginHandler) Method() string {
-	return http.MethodPost
-}
-
-func (l *LoginHandler) Path() string {
-	return "/login"
-}
-
-func (l *LoginHandler) HandlerFunc(c *gin.Context) {
+func Login(c *gin.Context) {
 	json := model.User{}
+
+	// 通过 `json:""`，可以使用BindJSON获取参数
 	c.BindJSON(&json)
+	// 若通过`form:""`, 可以使用表单以及Bind获取参数
 	db, cleanFunc, err := utils.GetDb()
 	defer cleanFunc()
 	if err != nil {
 		log.Fatal(err)
 	}
 	var user model.User
-	db.Where("username = ? AND password = ?", json.Username, json.Password).Find(&user)
-	if &user == nil {
+	result := db.Where("username = ? AND password = ?", json.Username, json.Password).Find(&user)
+	if result.Error != nil {
 		c.JSON(http.StatusOK, common.Error(1001, "登陆失败"))
 		return
 	}

@@ -1,2 +1,2 @@
 ### 获取所有文章
-GET http://119.45.30.109:7878/articles
+GET http://localhost:7878/api/v1/articles

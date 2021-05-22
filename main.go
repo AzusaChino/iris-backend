@@ -30,7 +30,10 @@ func main() {
 		MaxAge: 1 * time.Hour,
 	})
 
+	app.Static("/assets", "./assets")
+
 	app.Use(cors)
+	// app.Use(middleware.Logger())
 
 	router.ApplyRouter(app)
 

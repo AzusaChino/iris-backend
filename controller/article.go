@@ -10,37 +10,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ArticleController struct {
-}
-
-func (a *ArticleController) Method() string {
-	return http.MethodGet
-}
-
-func (a *ArticleController) Path() string {
-	return "/articles"
-}
-
-func (a *ArticleController) HandlerFunc(ctx *gin.Context) {
+func QueryArticle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, queryArticles())
 }
 
-type ArticleDetailController struct {
-}
-
-func (a *ArticleDetailController) Method() string {
-	return http.MethodGet
-}
-
-func (a *ArticleDetailController) Path() string {
-	return "/article/:id"
-}
-
-func (a *ArticleDetailController) HandlerFunc(ctx *gin.Context) {
+func QueryArticleDetail(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(http.StatusOK, queryArticle(id))
+	ctx.JSON(http.StatusOK, queryArticleDetail(id))
 }
 
+// TODO 分页查询
 func queryArticles() common.RestResponse {
 	db, cleanFunc, err := utils.GetDb()
 	defer cleanFunc()
@@ -49,18 +28,27 @@ func queryArticles() common.RestResponse {
 	}
 
 	var articles []model.Article
-	db.Find(&articles)
+	result := db.Find(&articles)
 
-	return common.Ok(articles)
+	if result.Error != nil {
+		return common.Ok(articles)
+	} else {
+		return common.Error(1004, "没有任何文章")
+	}
 }
 
-func queryArticle(id string) common.RestResponse {
+func queryArticleDetail(id string) common.RestResponse {
 	db, cleanFunc, err := utils.GetDb()
 	defer cleanFunc()
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	var article model.Article
-	db.Where("id = ?", id).Find(&article)
-	return common.Ok(article)
+	result := db.Where("id = ?", id).Find(&article)
+	if result.Error != nil {
+		return common.Ok(article)
+	} else {
+		return common.Error(1005, "未找到文章详情")
+	}
 }
