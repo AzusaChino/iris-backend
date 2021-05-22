@@ -29,7 +29,7 @@ DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物
 
 ## 状态码
 
-```json
+```javascript
 200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。
 201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。
 202 Accepted - [*]：表示一个请求已经进入后台排队（异步任务）
@@ -51,4 +51,11 @@ DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物
 隐藏式（implicit）
 密码式（password）：
 客户端凭证（client credentials）
+```
+
+## git branch
+
+```bash
+git branch dev
+git push origin dev
 ```
