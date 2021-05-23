@@ -1,12 +1,17 @@
 package main
 
 import (
+	"iris/pkg/setting"
 	"iris/router"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	setting.SetUp()
+}
 
 func main() {
 	app := gin.Default()
@@ -37,5 +42,5 @@ func main() {
 
 	router.ApplyRouter(app)
 
-	app.Run(":7878")
+	app.Run(":" + setting.AppConfig.Port)
 }
