@@ -10,7 +10,10 @@ import (
 )
 
 func init() {
+	// TODO docker打包后找不到配置文件
 	setting.SetUp()
+	// CGO 与 SQLite, 考虑使用Mysql
+	// TODO 2021/06/01 15:21:14 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
 }
 
 func main() {
