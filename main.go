@@ -1,6 +1,7 @@
 package main
 
 import (
+	"iris/pkg/orm"
 	"iris/pkg/setting"
 	"iris/router"
 	"time"
@@ -14,6 +15,7 @@ func init() {
 	setting.SetUp()
 	// CGO 与 SQLite, 考虑使用Mysql
 	// TODO 2021/06/01 15:21:14 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+	orm.SetUp()
 }
 
 func main() {

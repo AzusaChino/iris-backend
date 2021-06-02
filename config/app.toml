@@ -1,3 +1,10 @@
 title = "Iris Backend"
 [app]
 port = 7878
+
+[mysql]
+host = "sh-cynosdbmysql-grp-gdj3i6os.sql.tencentcdb.com"
+port = 20958
+username = "root"
+password = "Chino1204/"
+database = "iris-backend"

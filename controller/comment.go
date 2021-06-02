@@ -3,8 +3,7 @@ package controller
 import (
 	"iris/common"
 	"iris/model"
-	"iris/utils"
-	"log"
+	"iris/pkg/orm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,11 +15,8 @@ func QueryComment(ctx *gin.Context) {
 }
 
 func queryComment(articleId string) common.RestResponse {
-	db, clean, err := utils.GetDb()
-	defer clean()
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := orm.GetDb()
+
 	var comments []model.Comment
 	result := db.Where("article_id = ?", articleId).Find(&comments)
 	if result.Error != nil {

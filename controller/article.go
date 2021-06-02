@@ -3,8 +3,7 @@ package controller
 import (
 	"iris/common"
 	"iris/model"
-	"iris/utils"
-	"log"
+	"iris/pkg/orm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,11 +20,7 @@ func QueryArticleDetail(ctx *gin.Context) {
 
 // TODO 分页查询
 func queryArticles() common.RestResponse {
-	db, cleanFunc, err := utils.GetDb()
-	defer cleanFunc()
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := orm.GetDb()
 
 	var articles []model.Article
 	result := db.Find(&articles)
@@ -38,11 +33,7 @@ func queryArticles() common.RestResponse {
 }
 
 func queryArticleDetail(id string) common.RestResponse {
-	db, cleanFunc, err := utils.GetDb()
-	defer cleanFunc()
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := orm.GetDb()
 
 	var article model.Article
 	result := db.Where("id = ?", id).Find(&article)
