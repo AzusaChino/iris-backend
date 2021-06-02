@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"iris/pkg/setting"
 	"log"
+	"os"
 	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 )
 
@@ -36,6 +38,7 @@ func SetUp() {
 		},
 		PrepareStmt: true,
 		NowFunc:     time.Now().Local,
+		Logger:      defaultLogger(),
 	})
 
 	if err != nil {
@@ -45,4 +48,12 @@ func SetUp() {
 
 func GetDb() *gorm.DB {
 	return db
+}
+
+func defaultLogger() logger.Interface {
+	return logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), logger.Config{
+		SlowThreshold: 200 * time.Millisecond,
+		LogLevel:      logger.Info,
+		Colorful:      true,
+	})
 }

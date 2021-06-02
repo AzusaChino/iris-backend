@@ -10,7 +10,7 @@ import (
 )
 
 func Login(c *gin.Context) {
-	json := model.User{}
+	json := model.LoginParam{}
 
 	// 通过 `json:""`，可以使用BindJSON获取参数
 	c.BindJSON(&json)
@@ -20,7 +20,7 @@ func Login(c *gin.Context) {
 	var user model.User
 	result := db.Where("username = ? AND password = ?", json.Username, json.Password).Find(&user)
 	if result.Error != nil {
-		c.JSON(http.StatusOK, common.Error(1001, "登陆失败"))
+		c.JSON(http.StatusInternalServerError, common.Error(1001, "登陆失败"))
 		return
 	}
 

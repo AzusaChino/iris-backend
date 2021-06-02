@@ -26,20 +26,18 @@ func queryArticles() common.RestResponse {
 	result := db.Find(&articles)
 
 	if result.Error != nil {
-		return common.Ok(articles)
-	} else {
 		return common.Error(1004, "没有任何文章")
 	}
+	return common.Ok(articles)
 }
 
-func queryArticleDetail(id string) common.RestResponse {
+func queryArticleDetail(aid string) common.RestResponse {
 	db := orm.GetDb()
 
-	var article model.Article
-	result := db.Where("id = ?", id).Find(&article)
+	var articleDetail model.ArticleDetail
+	result := db.Where("article_id = ?", aid).Find(&articleDetail)
 	if result.Error != nil {
-		return common.Ok(article)
-	} else {
 		return common.Error(1005, "未找到文章详情")
 	}
+	return common.Ok(articleDetail)
 }

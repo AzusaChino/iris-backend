@@ -30,3 +30,8 @@ type Model struct {
 	UpdateTime JsonTime `json:"updateTime"`
 	IsDelete   string   `json:"isDelete"`
 }
+
+type LoginParam struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

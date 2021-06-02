@@ -35,6 +35,8 @@ WORKDIR /root/
 
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
+# copy config file from builder
+COPY --from=builder /app/app.toml .
 
 # Expose port 8080 to the outside world
 EXPOSE 7878

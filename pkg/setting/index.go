@@ -18,25 +18,28 @@ type Mysql struct {
 	Database string
 }
 
+var runViper *viper.Viper
+
 func init() {
-	viper.SetConfigName("app")
-	viper.SetConfigType("toml")
-	viper.AddConfigPath("./config")
+	runViper = viper.New()
+	runViper.SetConfigName("app")
+	runViper.SetConfigType("toml")
+	runViper.AddConfigPath(".")
 }
 
 var AppConfig = &App{}
 var MysqlConfig = &Mysql{}
 
 func SetUp() {
-	err := viper.ReadInConfig()
+	err := runViper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("读取配置失败: %s \n", err)
 	}
-	AppConfig.Port = viper.GetString("app.port")
+	AppConfig.Port = runViper.GetString("app.port")
 
-	MysqlConfig.Host = viper.GetString("mysql.host")
-	MysqlConfig.Port = viper.GetInt("mysql.port")
-	MysqlConfig.Username = viper.GetString("mysql.username")
-	MysqlConfig.Password = viper.GetString("mysql.password")
-	MysqlConfig.Database = viper.GetString("mysql.database")
+	MysqlConfig.Host = runViper.GetString("mysql.host")
+	MysqlConfig.Port = runViper.GetInt("mysql.port")
+	MysqlConfig.Username = runViper.GetString("mysql.username")
+	MysqlConfig.Password = runViper.GetString("mysql.password")
+	MysqlConfig.Database = runViper.GetString("mysql.database")
 }

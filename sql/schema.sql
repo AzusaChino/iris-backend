@@ -6,7 +6,8 @@ use `iris-backend`;
 create table if not exists `tb_user`
 (
     `id`          varchar(32)  not null primary key,
-    `username`    varchar(100) not null comment '用户名',
+    `username`    varchar(100) not null comment '登录名',
+    `nickname`    varchar(100) not null comment '用户昵称',
     `email`       varchar(100) comment '邮箱',
     `password`    varchar(50)  not null comment '密码',
     `avatar`      varchar(100) comment '头像URL路径',
@@ -25,7 +26,6 @@ create table if not exists `tb_article`
     `title`         varchar(100) not null comment '文章标题',
     `remark`        varchar(200) not null comment '简介',
     `pic`           varchar(200) comment '背景URL路径',
-    `content`       tinytext comment '文章内容',
     `publish_state` varchar(1)            default '0' comment '发布状态',
     `publish_time`  varchar(200) comment '发布时间',
     `create_user`   varchar(32) comment '创建用户',
@@ -35,11 +35,19 @@ create table if not exists `tb_article`
     `is_delete`     varchar(1)   not null default '0' comment '是否删除'
 ) engine = InnoDB comment '文章表';
 
--- 评论表
+-- 文章表
+create table if not exists `tb_article_detail`
+(
+    `article_id` varchar(32) not null primary key,
+    `content`    text comment '文章内容'
+) engine = InnoDB comment '文章详情表';
+
+
+-- 评论表·
 create table if not exists `tb_comment`
 (
     `id`          varchar(32)  not null primary key,
-    `pid`         varchar(32)  not null comment '父评论id',
+    `pid`         varchar(32)  not null default '0' comment '父评论id',
     `article_id`  varchar(32)  not null comment '文章id',
     `content`     varchar(200) not null comment '评论内容',
     `create_user` varchar(32) comment '创建用户',
