@@ -15,3 +15,6 @@
 vendor/
 .vscode/
 .env
+
+# ignore config file
+app.toml

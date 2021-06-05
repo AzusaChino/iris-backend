@@ -1,9 +1,9 @@
 package main
 
 import (
-	"iris/pkg/orm"
 	"iris/pkg/setting"
 	"iris/router"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -15,7 +15,9 @@ func init() {
 	setting.SetUp()
 	// CGO 与 SQLite, 考虑使用Mysql
 	// TODO 2021/06/01 15:21:14 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-	orm.SetUp()
+	// orm.SetUp()
+	print(os.Getenv("GIN_MODE"))
+	print(os.Getenv("APP_NAME"))
 }
 
 func main() {
