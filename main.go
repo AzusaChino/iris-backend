@@ -1,9 +1,9 @@
 package main
 
 import (
+	"iris/pkg/orm"
 	"iris/pkg/setting"
 	"iris/router"
-	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -11,19 +11,25 @@ import (
 )
 
 func init() {
-	// TODO docker打包后找不到配置文件
 	setting.SetUp()
-	// CGO 与 SQLite, 考虑使用Mysql
-	// TODO 2021/06/01 15:21:14 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-	// orm.SetUp()
-	print(os.Getenv("GIN_MODE"))
-	print(os.Getenv("APP_NAME"))
+	orm.SetUp()
 }
 
 func main() {
 	app := gin.Default()
 
-	cors := cors.New(cors.Config{
+	app.Static("/assets", "./assets")
+
+	app.Use(corsHandler())
+	// app.Use(middleware.Logger())
+
+	router.ApplyRouter(app)
+
+	app.Run(":" + setting.AppConfig.Port)
+}
+
+func corsHandler() gin.HandlerFunc {
+	return cors.New(cors.Config{
 		//准许跨域请求网站,多个使用,分开,限制使用*
 		AllowOrigins: []string{"*"},
 		//准许使用的请求方式
@@ -41,13 +47,4 @@ func main() {
 		//超时时间设定
 		MaxAge: 1 * time.Hour,
 	})
-
-	app.Static("/assets", "./assets")
-
-	app.Use(cors)
-	// app.Use(middleware.Logger())
-
-	router.ApplyRouter(app)
-
-	app.Run(":" + setting.AppConfig.Port)
 }
