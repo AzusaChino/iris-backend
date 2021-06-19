@@ -20,6 +20,6 @@ func Ok(obj interface{}) RestResponse {
 func Error(code int, msg string) RestResponse {
 	return RestResponse{
 		Code:    code,
-		Message: "ok",
+		Message: msg,
 	}
 }

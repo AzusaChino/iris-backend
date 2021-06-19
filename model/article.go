@@ -1,13 +1,15 @@
 package model
 
 type Article struct {
-	Id      int    `json:"id"`
-	Title   string `json:"title"`
-	Remark  string `json:"remark"`
-	Pic     string `json:"pic"`
-	Content string `json:"content"`
+	Model
+	Title        string   `json:"title"`
+	Remark       string   `json:"remark"`
+	Pic          string   `json:"pic"`
+	PublishState string   `json:"publishState"`
+	PublishTime  JsonTime `json:"publishTime"`
 }
 
-func (a *Article) TableName() string {
-	return "article"
+type ArticleDetail struct {
+	ArticleId string `json:"articleId"`
+	Content   string `json:"content"`
 }

@@ -1,1 +1,7 @@
 POST http://localhost:7878/api/v1/login
+Content-Type: application/json
+
+{
+    "username": "az",
+    "password": "abcd1234"
+}

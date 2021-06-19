@@ -1,6 +1,8 @@
 package main
 
 import (
+	"iris/pkg/orm"
+	"iris/pkg/setting"
 	"iris/router"
 	"time"
 
@@ -8,10 +10,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init() {
+	setting.SetUp()
+	orm.SetUp()
+}
+
 func main() {
 	app := gin.Default()
 
-	cors := cors.New(cors.Config{
+	app.Static("/assets", "./assets")
+
+	app.Use(corsHandler())
+	// app.Use(middleware.Logger())
+
+	router.ApplyRouter(app)
+
+	app.Run(":" + setting.AppConfig.Port)
+}
+
+func corsHandler() gin.HandlerFunc {
+	return cors.New(cors.Config{
 		//准许跨域请求网站,多个使用,分开,限制使用*
 		AllowOrigins: []string{"*"},
 		//准许使用的请求方式
@@ -29,13 +47,4 @@ func main() {
 		//超时时间设定
 		MaxAge: 1 * time.Hour,
 	})
-
-	app.Static("/assets", "./assets")
-
-	app.Use(cors)
-	// app.Use(middleware.Logger())
-
-	router.ApplyRouter(app)
-
-	app.Run(":7878")
 }
