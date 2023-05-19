@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/azusachino/iris/common"
-	"github.com/azusachino/iris/model"
-	"github.com/azusachino/iris/pkg/orm"
+	"github.com/azusachino/iris-content/common"
+	"github.com/azusachino/iris-content/model"
+	"github.com/azusachino/iris-content/pkg/orm"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

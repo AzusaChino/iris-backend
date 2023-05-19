@@ -17,4 +17,4 @@ vendor/
 .env
 
 # ignore config file
-app.toml
+*.sum

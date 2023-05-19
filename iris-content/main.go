@@ -3,9 +3,9 @@ package main
 import (
 	"time"
 
-	"github.com/azusachino/iris/pkg/orm"
-	"github.com/azusachino/iris/pkg/setting"
-	"github.com/azusachino/iris/router"
+	"github.com/azusachino/iris-content/pkg/orm"
+	"github.com/azusachino/iris-content/pkg/setting"
+	"github.com/azusachino/iris-content/router"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

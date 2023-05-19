@@ -1,6 +1,0 @@
-version: "3.5"
-
-services:
-  image: azusachino/iris-backend
-  ports:
-    - 7878:7878

@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/azusachino/iris/common"
+	"github.com/azusachino/iris-content/common"
 	"net/http"
 )
 

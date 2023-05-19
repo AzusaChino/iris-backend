@@ -1,4 +1,4 @@
-module github.com/azusachino/iris
+module github.com/azusachino/iris-content
 
 go 1.18
 
