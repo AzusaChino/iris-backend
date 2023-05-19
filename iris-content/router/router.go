@@ -1,7 +1,7 @@
 package router
 
 import (
-	c "iris/controller"
+	c "github.com/azusachino/iris-content/controller"
 
 	"github.com/gin-gonic/gin"
 )
