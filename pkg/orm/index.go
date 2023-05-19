@@ -2,7 +2,7 @@ package orm
 
 import (
 	"fmt"
-	"iris/pkg/setting"
+	"github.com/azusachino/iris/pkg/setting"
 	"log"
 	"os"
 	"time"

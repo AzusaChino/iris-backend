@@ -1,10 +1,11 @@
 package main
 
 import (
-	"iris/pkg/orm"
-	"iris/pkg/setting"
-	"iris/router"
 	"time"
+
+	"github.com/azusachino/iris/pkg/orm"
+	"github.com/azusachino/iris/pkg/setting"
+	"github.com/azusachino/iris/router"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
